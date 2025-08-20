@@ -15,12 +15,18 @@ app.get('/', (req, res) => {
 // Proxy routes
 app.use('/products', createProxyMiddleware({
   target: productServiceUrl,
-  changeOrigin: true
+  changeOrigin: true,
+  pathRewrite: {
+    '^/products': '/products' // keep same path on target
+  }
 }));
 
 app.use('/search', createProxyMiddleware({
   target: searchServiceUrl,
-  changeOrigin: true
+  changeOrigin: true,
+  pathRewrite: {
+    '^/search': '/search'
+  }
 }));
 
 // For local dev only
